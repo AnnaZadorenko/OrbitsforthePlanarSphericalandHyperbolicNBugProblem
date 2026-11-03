@@ -1,0 +1,437 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+            name="description"
+            content="Interactive visualization of the planar, spherical and hyperbolic N-Bug problem."
+    >
+
+    <title>WPI N-Bug Orbits Explorer</title>
+
+    <link
+            rel="stylesheet"
+            href="styles.css"
+    >
+</head>
+
+<body>
+
+<div id="app" class="app-shell">
+
+
+    <aside class="sidebar">
+
+        <div class="brand-block">
+
+            <div class="brand-mark">
+
+                <img
+                        src="assets/wpi-round-logo.png"
+                        alt="WPI logo"
+                        class="brand-logo"
+                >
+
+            </div>
+
+            <div>
+
+                <h1>N-Bug Orbits</h1>
+
+                <p>Interactive visualization</p>
+
+            </div>
+
+        </div>
+
+
+
+
+        <nav
+                class="nav"
+                aria-label="Main navigation"
+        >
+
+            <p class="nav-label">
+                VISUALIZATIONS
+            </p>
+
+            <button
+                    class="nav-item active"
+                    data-geometry="planar"
+                    type="button"
+            >
+                Planar Orbits
+            </button>
+
+            <button
+                    class="nav-item"
+                    data-geometry="spherical"
+                    type="button"
+            >
+                Spherical Orbits
+            </button>
+
+            <button
+                    class="nav-item"
+                    data-geometry="hyperbolic"
+                    type="button"
+            >
+                Hyperbolic Orbits
+            </button>
+
+
+
+
+            <p class="nav-label">
+                PROJECT
+            </p>
+
+            <button
+                    class="nav-item"
+                    data-page="about-project"
+                    type="button"
+            >
+                About the Project
+            </button>
+
+            <button
+                    class="nav-item"
+                    data-page="how-to-use"
+                    type="button"
+            >
+                How to Use
+            </button>
+
+            <button
+                    class="nav-item"
+                    data-page="more-about"
+                    type="button"
+            >
+                More about the N-Bug Problem
+            </button>
+
+            <button
+                    class="nav-item"
+                    data-page="references"
+                    type="button"
+            >
+                References
+            </button>
+
+            <button
+                    class="nav-item"
+                    data-page="credits"
+                    type="button"
+            >
+                Credits
+            </button>
+
+        </nav>
+
+        <p class="sidebar-footer">
+            Worcester Polytechnic Institute
+        </p>
+
+    </aside>
+
+
+
+
+    <main class="main-content">
+
+
+
+        <header class="topbar">
+
+            <div>
+
+                <p class="eyebrow">
+                    Interactive Mathematics
+                </p>
+
+                <h2 id="pageTitle">
+                    Planar N-Bug Orbits
+                </h2>
+
+            </div>
+
+            <button
+                    id="menuButton"
+                    class="menu-button"
+                    type="button"
+                    aria-label="Toggle menu"
+            >
+                ☰
+            </button>
+
+        </header>
+
+
+
+
+        <section
+                id="visualizationSection"
+                class="workspace"
+        >
+
+
+
+            <div class="visual-panel">
+
+                <button
+                        id="fullscreenButton"
+                        class="fullscreen-button"
+                        type="button"
+                        aria-label="Open visualization in fullscreen"
+                        title="Fullscreen"
+                >
+                    ⛶
+                </button>
+
+                <canvas
+                        id="hypercubeCanvas"
+                        width="900"
+                        height="700"
+                        aria-label="N-Bug pursuit orbit visualization"
+                ></canvas>
+
+                <div class="canvas-badge">
+
+                    <span id="geometryBadge">
+                        Planar
+                    </span>
+
+                    geometry
+
+                </div>
+
+            </div>
+
+
+
+            <div class="control-column">
+
+
+
+                <section class="card controls-card">
+
+                    <div class="card-heading">
+
+                        <div>
+
+                            <p class="eyebrow">
+                                PLAYBACK
+                            </p>
+
+                            <h3>
+                                Animation Controls
+                            </h3>
+
+                        </div>
+
+                        <span
+                                id="statusPill"
+                                class="status-pill"
+                        >
+                            Ready
+                        </span>
+
+                    </div>
+
+
+
+
+                    <div class="button-row">
+
+                        <button
+                                id="playButton"
+                                class="primary-button"
+                                type="button"
+                        >
+                            ▶ Play
+                        </button>
+
+                        <button
+                                id="resetButton"
+                                class="secondary-button"
+                                type="button"
+                        >
+                            ↻ Reset
+                        </button>
+
+                    </div>
+
+
+
+
+                    <label
+                            class="range-label"
+                            for="speedRange"
+                    >
+
+                        <span>
+                            Animation speed
+                        </span>
+
+                        <span id="speedValue">
+                            1.0×
+                        </span>
+
+                    </label>
+
+                    <input
+                            id="speedRange"
+                            type="range"
+                            min="0.2"
+                            max="2.5"
+                            step="0.1"
+                            value="1"
+                    >
+
+
+
+
+                    <label
+                            class="range-label"
+                            for="bugCount"
+                    >
+
+                        <span>
+                            Number of bugs
+                        </span>
+
+                        <span id="bugCountValue">
+                            3
+                        </span>
+
+                    </label>
+
+                    <input
+                            id="bugCount"
+                            type="range"
+                            min="3"
+                            max="8"
+                            step="1"
+                            value="3"
+                    >
+
+
+
+
+                    <div class="toggle-row">
+
+                        <span>
+                            Show bugs
+                        </span>
+
+                        <label class="switch">
+
+                            <input
+                                    id="bugsToggle"
+                                    type="checkbox"
+                                    checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+
+
+                    <div class="toggle-row">
+
+                        <span>
+                            Show pursuit path
+                        </span>
+
+                        <label class="switch">
+
+                            <input
+                                    id="pathToggle"
+                                    type="checkbox"
+                                    checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </section>
+
+
+
+
+                <section
+                        id="infoCard"
+                        class="card info-card"
+                >
+
+                    <h3 id="infoTitle">
+                        Planar N-Bug Problem
+                    </h3>
+
+                    <p id="infoText">
+                        The N-Bug problem describes bugs
+                        starting at the corners of a
+                        regular polygon and moving
+                        directly toward one another
+                        at a constant speed.
+                    </p>
+
+
+
+
+
+
+                </section>
+
+            </div>
+
+        </section>
+
+
+
+        <section
+                id="projectSection"
+                class="project-page is-hidden"
+        >
+
+            <section class="card project-card">
+
+                <div
+                        id="projectText"
+                        style="white-space: pre-line; line-height: 1.7;"
+                ></div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+
+<script
+        type="module"
+        src="app.js"
+></script>
+
+</body>
+</html>
