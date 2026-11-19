@@ -102,8 +102,24 @@ $('menuButton').addEventListener('click', () => {
 });
 
 $('playButton').addEventListener('click', () => {
-    $('statusPill').textContent = 'Animation coming soon';
+    if (renderer.playing) {
+        stop();
+        $('statusPill').textContent = 'Paused';
+    } else {
+        playing = true;
+        renderer.play();
+        $('playButton').textContent = 'Ⅱ Pause';
+        $('statusPill').textContent = 'Playing';
+        $('statusPill').classList.add('playing');
+    }
 });
+
+renderer.onComplete = () => {
+    playing = false;
+    $('playButton').textContent = '▶ Play';
+    $('statusPill').textContent = 'Finished';
+    $('statusPill').classList.remove('playing');
+};
 
 $('resetButton').addEventListener('click', () => {
     stop();
@@ -157,5 +173,7 @@ document.addEventListener('fullscreenchange', () => {
 });
 
 window.addEventListener('resize', () => renderer.resize());
-
+$('orbitColor').addEventListener('change', e => {
+    renderer.setColor(e.target.value);
+});
 showGeometry('planar');

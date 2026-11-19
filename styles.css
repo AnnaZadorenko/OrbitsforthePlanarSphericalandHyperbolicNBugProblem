@@ -1634,3 +1634,23 @@ input[type="range"] {
     font-size: 18px;
     color: #111827;
 }
+
+.orbit-color-select {
+    width: 100%;
+    padding: 9px 12px;
+    margin: 6px 0 14px;
+
+    border: 1px solid var(--line);
+    border-radius: 8px;
+
+    background: white;
+    color: var(--ink);
+
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.orbit-color-select:focus {
+    outline: 2px solid var(--wpi-red);
+    outline-offset: 2px;
+}
